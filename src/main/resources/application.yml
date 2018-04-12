@@ -1,0 +1,57 @@
+server:
+  port: 8892
+spring:
+  application:
+    name: partner-bs
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.185:3306/yunyij_partner
+    username: admin
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: com.github.jlf1997.spring_boot_sdk.model.dialect.FastCustomSQLDialect
+    show-sql: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.185:8888/eureka/
+      
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000      
+yunyij: 
+  security:
+    jwt:
+      partner:
+        tokenExpirationTime: 1440 # Number of minutes
+        refreshTokenExpTime: 10080 # Minutes
+        tokenIssuer: http://yunyij.com/partner
+        tokenSigningKey:  bzLMfy2Ed5cP0YRn2Fg8YX6Z2  
+        
+swagger:
+  enabled: true
+  base-package:  com.yunyij.partner.web  
+      
+topic:
+  translation: translationLog    
+    
+client:
+  message:
+    name: message-bs
+kafka:
+  type:
+    ssl: false
+  consumer:
+    concurrency: 10
+        
